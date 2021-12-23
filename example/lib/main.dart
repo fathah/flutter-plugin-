@@ -30,7 +30,6 @@ class _MyAppState extends State<MyApp> {
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     String name="";
-
     String platformVersion = '...';
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
@@ -45,11 +44,9 @@ class _MyAppState extends State<MyApp> {
     // message was in flight, we want to discard the reply rather than calling
     // setState to update our non-existent appearance.
     if (!mounted) return;
-
     setState(() {
       _name = name;
     });
-
     setState(() {
       _platformVersion = platformVersion;
     });
@@ -71,18 +68,24 @@ class _MyAppState extends State<MyApp> {
         body: Column(
           children: [
             TextField(
-              onChanged: (name) {},
+              onChanged: (val) {
+                 setState(() {
+       _name=val;
+    });
+             
+              },
             ),
             ElevatedButton(
               onPressed: () async {
                 try {
                   _platformVersion = await SmartPosZ91Interface.print ??
                       'Unknown platform version';
+                  
                 } on PlatformException {
                   _platformVersion = 'Failed to get platform version.';
                 }
               },
-              child: Text("click"),
+              child: Text("Click"),
             ),
           ],
         ),
