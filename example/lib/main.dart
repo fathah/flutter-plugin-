@@ -78,7 +78,7 @@ class _MyAppState extends State<MyApp> {
             ElevatedButton(
               onPressed: () async {
                 try {
-                  _platformVersion = await SmartPosZ91Interface.print ??
+                  _platformVersion = await SmartPosZ91Interface.print(_name) ??
                       'Unknown platform version';
                   
                 } on PlatformException {
