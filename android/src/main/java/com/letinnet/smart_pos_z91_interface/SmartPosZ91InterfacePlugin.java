@@ -47,7 +47,7 @@ public class SmartPosZ91InterfacePlugin implements FlutterPlugin, MethodCallHand
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("print")) {
 
-     
+     String name = call.argument('name');
 
       PrnStrFormat format = new PrnStrFormat();
       format.setTextSize(30);
