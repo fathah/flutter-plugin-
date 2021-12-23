@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -17,6 +19,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
+  String _name = "";
 
   @override
   void initState() {
@@ -26,7 +29,9 @@ class _MyAppState extends State<MyApp> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    String platformVersion='...';
+    String name="";
+
+    String platformVersion = '...';
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     /*try {
@@ -42,8 +47,18 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
+      _name = name;
+    });
+
+    setState(() {
       _platformVersion = platformVersion;
     });
+
+    @override
+    Widget build(BuildContext context) {
+      // TODO: implement build
+      throw UnimplementedError();
+    }
   }
 
   @override
@@ -51,20 +66,23 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text(''),
         ),
         body: Column(
           children: [
-            Text('Running on: $_platformVersion\n'),
-            ElevatedButton(onPressed: () async {
-              try {
-      _platformVersion =
-          await SmartPosZ91Interface.print ?? 'Unknown platform version';
-    } on PlatformException {
-      _platformVersion = 'Failed to get platform version.';
-    }
-
-            }, child: Text("click"),
+            TextField(
+              onChanged: (name) {},
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                try {
+                  _platformVersion = await SmartPosZ91Interface.print ??
+                      'Unknown platform version';
+                } on PlatformException {
+                  _platformVersion = 'Failed to get platform version.';
+                }
+              },
+              child: Text("click"),
             ),
           ],
         ),
